@@ -1,17 +1,14 @@
 package com.mycompany.dvdstore.core.controller;
 
-import com.mycompany.dvdstore.core.controller.form.MovieForm;
 import com.mycompany.dvdstore.core.entity.Movie;
-import com.mycompany.dvdstore.core.service.DefaultMovieService;
+import com.mycompany.dvdstore.core.form.MovieForm;
 import com.mycompany.dvdstore.core.service.MovieServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Scanner;
 
 @Controller
 @RequestMapping("/movie")
@@ -28,8 +25,9 @@ public class MovieController {
         this.movieService = movieService;
     }
 
-    @PostMapping("/")
+    @PostMapping("/add")
     public String addMovie(@Valid @ModelAttribute MovieForm movieForm, BindingResult result) {
+
         if(result.hasErrors()) {
             return "add-movie-form";
         }
@@ -38,14 +36,8 @@ public class MovieController {
         movie.setTitle(movieForm.getTitle());
         movie.setGenre(movieForm.getGenre());
         movie.setDescription(movieForm.getDescription());
+
         movieService.registerMovie(movie);
         return "movie-added";
-    }
-
-    @GetMapping("/{id}")
-    public String displayMovieCard(@PathVariable(value = "id") Long idMovie, Model model) {
-        System.out.println("La methode displayMovieCart a été invoquée !");
-        model.addAttribute("movie", movieService.getMovieById(idMovie));
-        return "movie-details";
     }
 }

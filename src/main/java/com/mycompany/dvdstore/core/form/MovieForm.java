@@ -1,4 +1,4 @@
-package com.mycompany.dvdstore.core.controller.form;
+package com.mycompany.dvdstore.core.form;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -11,7 +11,7 @@ public class MovieForm {
     private String title;
     @NotBlank(message = "Veuillez choisir un genre")
     private String genre;
-    @Size(max = 255, message = "Entrez une description de 255 caractère au plus")
+    @Size(max = 255, message = "Entrez une description de 255 caractères au plus")
     private String description;
 
     public String getDescription() {
